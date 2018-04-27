@@ -5,7 +5,7 @@ from django.contrib.auth.admin import User
 
 class BlogArticles(models.Model):
     title = models.CharField(max_length=300)
-    auther = models.ForeignKey(User, related_name="blog_posts",on_delete = models.CASCADE)
+    author = models.ForeignKey(User, related_name="blog_posts",on_delete = models.CASCADE)
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
 

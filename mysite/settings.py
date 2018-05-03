@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'account',
+    'password_reset',
 ]
 
 MIDDLEWARE = [
@@ -125,5 +126,14 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+# 登陆模板选择
+#LOGIN_REDIRECT_URL = '/blog/'
 
-LOGIN_REDIRECT_URL = '/blog/'
+# 邮箱设置
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_HOST_USER = "l791034063@163.com"
+EMAIL_HOST_PASSWORD = 'l791034063'
+EMAIL_PORT = 25
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #讲邮件内容显示在终端中，不会发送给目的邮箱

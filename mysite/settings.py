@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'account',
+    'article',
     'password_reset',
 ]
 
@@ -127,7 +128,7 @@ STATICFILES_DIRS = (
 )
 
 # 登陆模板选择
-#LOGIN_REDIRECT_URL = '/blog/'
+LOGIN_REDIRECT_URL = '/blog/'
 
 # 邮箱设置
 EMAIL_HOST = 'smtp.163.com'

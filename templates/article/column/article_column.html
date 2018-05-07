@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% block title %}article column{% endblock %}
 {% block content %}
+
 <div>
     <p class="text-right"><button id="add_column" onclick="add_column()" class="btn btn-primary">add column</button></p>
     <table class="table table-hover"> <!-- table-hover悬停表格 -->
@@ -15,8 +16,8 @@
             <td>{{ forloop.counter }}</td>
             <td>{{ column.column }}</td>
             <td>
-                <a name="edit" href="javascript:" onclick="edit_column(this, {{ column.id }})"><span class="glyphicon glyphicon-pencil"></span>
-                <a name="delete" href="javascript:" onclick="del_column(this, {{ column.id }})"><span class="glyphicon glyphicon-glass" style="margin-left: 20px;"></span></a>    
+                <a name="edit" href="javascript:" onclick="edit_column(this, {{ column.id }})"><i class="layui-icon">&#xe642;</i></a>
+                <a name="delete" href="javascript:" onclick="del_column(this, {{ column.id }})"><i class="layui-icon" style="margin-left: 20px;">&#xe640;</i></a>    
             </td>
         </tr>
         {% empty %}

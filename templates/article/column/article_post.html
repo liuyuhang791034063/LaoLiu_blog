@@ -21,6 +21,18 @@
             </div>
         </div>
         <div class="raw" style="margin-top: 10px">
+            <div class="col-md-2 text-right">文章标签</div>
+            <div class="col-md-10 text-left">
+                {% for tag in article_tags %}
+                <label class="checkbox-inline">
+                    <input type="checkbox" class="tagcheckbox" name="article_tag" id="{{ tag.id }}" value="{{ tag.tag }}">{{ tag.tag }}
+                </label>    
+                {% empty %}
+                <p>你没有文章标签，请访问<a href="{{ url 'article:article_tag' %}">添加文章标签</a></p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="raw" style="margin-top: 10px">
             <div class="col-md-2 text-right"><span>内容：</span></div>
             <div id="editormd" class="col-md-10 text-left">
                 <textarea style="display:none;" id="id_body"></textarea>

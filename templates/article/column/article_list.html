@@ -1,4 +1,4 @@
-{% extends "article/base.html" %}
+{% extends 'article/base.html' %}
 {% load staticfiles %}
 {% block title %}article list{% endblock %}
 {% block content %}
@@ -16,8 +16,8 @@
             <td><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></td>
             <td>{{ article.column }}</td>
             <td>
-                <a name="edit" href="{% url 'article:redit_article' article.id %}"><i class="layui-icon">&#xe642;</i></a>
-                <a name="delete" href="javascript:" onclick="del_article(this,{{ article.id }})"><i class="layui-icon" style="margin-left: 20px;">&#xe640;</i></a>
+                <a name="edit" href="{% url 'article:redit_article' article.id %}"><i class="layui-icon layui-icon-edit"></i></a>
+                <a name="delete" href="javascript:" onclick="del_article(this,{{ article.id }})"><i class="layui-icon layui-icon-delete" style="margin-left: 20px;"></i></a>
             </td>
         </tr>
         {% endfor %}
@@ -34,7 +34,7 @@
             skin:"layui-layer-rim",
             area:["400px","200px"],
             title:"删除文章",
-            content:'<div class="text-center" style="margin-top:20px"><p>是否确定删除《'+article_name+'》</p></div>',
+            content:'<div class="text-center" style="margin-top:20px"><p>是否确定删除'+article_name+'</p></div>',
             btn:['确定','取消'],
             yes:function(){
                 $.ajax({

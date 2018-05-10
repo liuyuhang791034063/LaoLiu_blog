@@ -1,13 +1,32 @@
+{% load staticfiles %}
+
 <div class="pagination">
     <span class="step-links">
         {% if page.has_previous %}
-        <a href="?page={{ page.previous_page_number }}">Previous</a>
+        <a class="layui-btn layui-btn-radius" href="?page={{ page.previous_page_number }}">Previous</a>
         {% endif %}
         <span class="current">
             Page {{ page.number }} of {{ page.paginator.num_pages }}
         </span>
         {% if page.has_next %}
-        <a href="?page={{ page.next_page_number }}">Next</a>
+        <a class="layui-btn layui-btn-radius"href="?page={{ page.next_page_number }}">Next</a>
+        
         {% endif %}
     </span>
 </div>
+<!-- <div id="test1"></div>
+ 
+<script src="{% static 'layui/layui.js' %}"></script>
+<script>
+layui.use('laypage', function(){
+  var laypage = layui.laypage;
+  var article_num = {{articles.articlenum}};
+//   var article_num = {{ articles.article_num }};
+  //执行一个laypage实例
+  laypage.render({
+    elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+    ,count:article_num //数据总数，从服务端得到
+    ,limit:5
+  });
+});
+</script> -->

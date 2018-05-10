@@ -127,7 +127,7 @@ STATICFILES_DIRS = (
 )
 
 # 登陆模板选择
-LOGIN_REDIRECT_URL = '/blog/'
+LOGIN_REDIRECT_URL = '/home/'
 
 # 邮箱设置
 EMAIL_HOST = 'smtp.163.com'
@@ -137,3 +137,8 @@ EMAIL_PORT = 25
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #讲邮件内容显示在终端中，不会发送给目的邮箱
+
+#redis 设置
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0

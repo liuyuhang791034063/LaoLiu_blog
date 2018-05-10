@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
+from django.db import models
 from slugify import slugify
 
 class ArticleColumn(models.Model):
@@ -20,7 +21,7 @@ class ArticlePost(models.Model):
     body = models.TextField()
     created = models.DateTimeField(default=timezone.now())
     updated = models.DateTimeField(auto_now=True)
-
+    users_like = models.ManyToManyField(User,related_name="article_like",blank=True)
     class Meta:
         ordering = ("-updated",)
         index_together = (('id','slug'),)
@@ -35,3 +36,17 @@ class ArticlePost(models.Model):
     def get_absolute_url(self):
         return reverse("article:article_detail", args=[self.id, self.slug])
 
+    def get_url_path(self):
+        return reverse("article:list_article_detail", args=[self.id, self.slug])
+
+class Comment(models.Model):
+    article = models.ForeignKey(ArticlePost, related_name="comments", on_delete=models.CASCADE) #related_name 可以通过外键进行查找
+    commentator = models.CharField(max_length=90)
+    body = models.TextField()
+    created = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        return "Comment by {0} on {1}".format(self.commentator.username, self.article)

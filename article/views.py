@@ -76,7 +76,7 @@ def article_post(request):
 @login_required(login_url='account/login/')
 def article_list(request):
     article_list = ArticlePost.objects.filter(author = request.user) #筛选出用户的所有文章对象 request.user就是User的一个实例
-    paginator = Paginator(article_list,2) #对article_list进行分页,每页最多2
+    paginator = Paginator(article_list,5) #对article_list进行分页,每页最多2
     page = request.GET.get('page')
     try:
         current_page = paginator.page(page) #page方法用于得到page页面的内容

@@ -8,6 +8,7 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from .models import ArticleColumn, ArticlePost, ArticleTag
 from .forms import ArticleColumnForm,ArticlePostForm,ArticleTagForm
 
+list
 @login_required(login_url='/account/login')
 @csrf_exempt
 def article_column(request):

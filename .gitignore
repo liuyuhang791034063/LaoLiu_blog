@@ -1,0 +1,5 @@
+##ignore this file##
+/target/ 
+*.pyc
+/templates/.vscode
+/.idea

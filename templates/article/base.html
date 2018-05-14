@@ -1,21 +1,21 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang='zh-cn'>
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE-Edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv='X-UA-Compatible' content='IE-Edge'>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel='stylesheet' href='{% static 'layui/css/layui.css' %}'>
+    <link rel='stylesheet' href='{% static 'css/bootstrap.css' %}'>
 </head>
 <body>
     {% include 'article/header.html' %}
-    <div class="container">
-        <div class="col-md-2">
+    <div class='container'>
+        <div class='col-md-2'>
             {% include 'article/leftslider.html' %}
         </div>
-        <div class="col-md-10">
+        <div class='col-md-10'>
             {% block content %}
             {% endblock %}
         </div>

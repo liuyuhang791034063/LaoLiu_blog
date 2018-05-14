@@ -1,21 +1,21 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang='zh-cn'>
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width,initial-scale=1'>
         <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
-        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel='stylesheet' href='{% static 'layui/css/layui.css' %}'>
+        <link rel='stylesheet' href='{% static 'css/bootstrap.css' %}'>
     </head>
     <body>
-        {% include "header.html" %}
-        <div class="container">
+        {% include 'header.html' %}
+        <div class='container'>
             {% block content %}
             {% endblock %}
         </div>
-        {% include "footer.html" %}
+        {% include 'footer.html' %}
         {% block javascritp %}{% endblock %}
     </body>
 </html>
-<div class=""></div>
+<div class=''></div>

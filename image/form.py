@@ -9,7 +9,8 @@
 from django import forms
 from django.core.files.base import ContentFile
 from slugify import slugify
-from urllib import request
+import requests
+from urllib.request import urlopen
 
 from .models import Image
 
@@ -26,11 +27,17 @@ class ImageForm(forms.ModelForm):
             raise forms.ValidationError("The given Url does not match valid image extension.")
         return url
     def save(self,force_insert=False ,commit=True, force_update=False):
+        #print(1)
         image = super(ImageForm, self).save(commit=False)
+        #print(2)
         image_url = self.cleaned_data['url']
+        #print(3)
         image_name = '{0}.{1}'.format(slugify(image.title),image_url.rsplit('.',1)[1].lower())
-        response = request.urlopen(image_url)
-        image.image.save(image_name, ContentFile(response.read()), save=False)
+        #print(4)
+        #print(image_url)
+        response = requests.get(image_url)
+        #print(5)
+        image.image.save(image_name, ContentFile(response.content), save=False)
         if commit:
             image.save()
 

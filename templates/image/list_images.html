@@ -1,14 +1,17 @@
-{% extends "article/base.html" %}
+{% extends 'article/base.html' %}
 
 {% load staticfiles %}
 
 {% block title %}images{% endblock %}
 
 {% block content %}
+<div class="">
+    
+</div>
 <div>
-    <button class="layui-btn layui-btn-fluid" onclick="addImage()">添加图片</button>
-    <div style="margin-top: 10px;">
-        <table class="layui-table">
+    <button class='layui-btn layui-btn-fluid' onclick='addImage()'>添加图片</button>
+    <div style='margin-top: 10px;'>
+        <table class='layui-table'>
             <thead>
                 <tr>
                     <th>序号</th>
@@ -23,7 +26,7 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ image.title }}</td>
                     <td>{{ image.image }}</td>
-                    <td><a href="javascript:" name="delete" onclick="del_image(this,{{ image.id }})"><span class="layui-icon-delete" style="margin-left: 20px;"></span></a></td>
+                    <td><a href='javascript:' name='delete' onclick='del_image(this,{{ image.id }})'><span class='layui-icon layui-icon-delete' style='margin-left: 20px;'></span></a></td>
                 </tr>
                 {% empty %}
                 <p>还没有图片，请点击上面的按钮添加图片</p>
@@ -32,4 +35,75 @@
         </table>
     </div>
 </div>
+<script src='{% static 'js/jquery.js' %}'></script>
+<script src='{% static 'js/layer.js' %}'></script>
+<script>
+    function addImage(){
+        var index = layer.open({
+            type:1,
+            skin:'layui-layer-demo',
+            closeBtn:2,
+            shift:2,
+            shadeClose:true,
+            title:'添加图片',
+            area:['600px','440px'],
+            content:"<div style='padding: 20px'>\
+                    <p>请新增扩展名是.jpg或.png的网上照片地址</p>\
+                    <form class='layui-form'>\
+                        <div class='layui-form-item'>\
+                            <label for='phototitle' class='col-sm-2 layui-form-label'>标题</label>\
+                            <div class='col-sm-10'>\
+                                <input type='text' id='phototitle' class='layui-input' style='margin-bottom: 5px;'>\
+                            </div>\
+                        </div>\
+                        <div class='layui-form-item'>\
+                            <label for='photourl' class='col-sm-2 layui-form-label'>地址</label>\
+                            <div class='col-sm-10'>\
+                                <input type='text' id='photourl' class='layui-input' style='margin-bottom: 5px;'>\
+                            </div>\
+                        </div>\
+                        <div class='layui-form-item'>\
+                            <label for='photodescription' class='col-sm-2 layui-form-label'>描述</label>\
+                            <div class='col-sm-10'>\
+                                <textarea id='photodescription' class='layui-textarea' style='margin-bottom: 5px;' row='2'></textarea>\
+                            </div>\
+                        </div>\
+                        <div class='layui-form-item'>\
+                            <div class='col-sm-offset-2 col-sm-10'>\
+                                <input type='button' id='newphoto' class='layui-btn' value='添加'>\
+                            </div>\
+                        </div>\
+                    </form>\
+                </div>",
+            success:function(){
+                $("#newphoto").on('click',function(){
+                    var title = $("#phototitle").val();
+                    var url = $("#photourl").val();
+                    var description = $("#photodescription").val();
+                    var photo = {"title":title, "url":url, "description":description};
+                    $.ajax({
+                        url:'{% url "image:upload_image" %}',
+                        type:"POST",
+                        data:photo,
+                        success:function(e){
+                            var status = e['status']
+                            if (status == "1"){
+                                layer.close(index);
+                                window.location.reload();
+                            }else{
+                                layer.msg("图片无法获取，请更换图片");
+                            }
+                        },
+                    });
+                });
+            },
+        });
+    }
+    function del_image(the,image_id){
+        var image_title = $(the).parents("tr").children("td").eq(1).text();
+        layer.open({
+
+        })
+    }
+</script>
 {% endblock %}

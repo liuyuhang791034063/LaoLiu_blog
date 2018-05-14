@@ -14,14 +14,29 @@ def upload_image(request):
     form = ImageForm(data=request.POST)
     if form.is_valid():
         try:
+            print(456)
             new_item = form.save(commit=False)
+            print(789)
             new_item.user = request.user
             new_item.save()
             return JsonResponse({'status':"1"})
         except:
+            print(123)
             return JsonResponse({'status':"0"})
 
 @login_required(login_url='/account/login/')
 def list_images(request):
     images = Image.objects.filter(user=request.user)
     return render(request, 'image/list_images.html', {"images":images})
+
+@login_required(login_url='/accout/login/')
+@require_POST
+@csrf_exempt
+def del_image(request):
+    image_id = request.POST['image_id']
+    try:
+        image = Image.objects.get(id=image_id)
+        image.delete()
+        return JsonResponse({"status":"1"})
+    except:
+        return JsonResponse({"status":"2"})

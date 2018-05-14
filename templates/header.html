@@ -1,36 +1,36 @@
 {% load staticfiles %}
-<div class="container">
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-            <a class="navbar-brang" href="https://blog.csdn.net/Sun_White_Boy"><img src="{% static 'images/logo.png' %}" width="50px" height="50px"></a>
+<div class='container'>
+    <nav class='navbar navbar-default' role='navigation'>
+        <div class='navbar-header'>
+            <a class='navbar-brang' href='https://blog.csdn.net/Sun_White_Boy'><img src='{% static 'images/logo.png' %}' width='50px' height='50px'></a>
         </div>
         <div>
-            <ul class="nav navbar-nav" role="navigation">
-                <li><a href="{% url 'home' %}" >HOME</a></li>
-                <li><a href="{% url 'blog:blog_title' %}" >BLOG</a></li>
-                <li><a href="{% url 'article:article_titles' %}" class="layui-bg-green">文章</a></li>
+            <ul class='nav navbar-nav' role='navigation'>
+                <li><a href='{% url 'home' %}' >HOME</a></li>
+                <li><a href='{% url 'blog:blog_title' %}' >BLOG</a></li>
+                <li><a href='{% url 'article:article_titles' %}' class='layui-bg-green'>文章</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class='nav navbar-nav navbar-right'>
                 {% if user.is_authenticated %}
                 <li>
-                    <div class="dropdown" style="margin-top:8px">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown">{{ user.username }}<span class="caret"></span> </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'account:password_change' %}" class="layui-bg-red">修改密码</a></li>
-                            <li><a href="{% url 'account:my_information' %}" class="layui-bg-orange">个人信息</a></li>
-                            <li><a href="{% url 'article:article_column' %}" class="layui-bg-green">后台管理</a> </li>
-                            <li><a href="{% url 'image:list_images' %}" class="layui-bg-cyan">图片管理</a></li>
+                    <div class='dropdown' style='margin-top:8px'>
+                        <button class='btn btn-default dropdown-toggle' type='button' id='dropdownMenu' data-toggle='dropdown'>{{ user.username }}<span class='caret'></span> </button>
+                        <ul class='dropdown-menu'>
+                            <li><a href='{% url 'account:password_change' %}' class='layui-bg-red'>修改密码</a></li>
+                            <li><a href='{% url 'account:my_information' %}' class='layui-bg-orange'>个人信息</a></li>
+                            <li><a href='{% url 'article:article_column' %}' class='layui-bg-green'>后台管理</a> </li>
+                            <li><a href='{% url 'image:list_images' %}' class='layui-bg-cyan'>图片管理</a></li>
                         </ul>
                     </div>
                 </li>
-                <li><a href="{% url 'account:user_logout' %}">Logout</a></li>
+                <li><a href='{% url 'account:user_logout' %}'>Logout</a></li>
                 {% else %}
-                <li><a href="{% url 'account:user_login' %}">LOGIN</a></li>
-                <li><a href="{% url 'account:user_register' %}">Sign up</a></li>
+                <li><a href='{% url 'account:user_login' %}'>LOGIN</a></li>
+                <li><a href='{% url 'account:user_register' %}'>Sign up</a></li>
                 {% endif %}
             </ul>
         </div>
     </nav>
 </div>
-<script src="{% static 'js/jquery.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
+<script src='{% static 'js/jquery.js' %}'></script>
+<script src='{% static 'js/bootstrap.js' %}'></script>

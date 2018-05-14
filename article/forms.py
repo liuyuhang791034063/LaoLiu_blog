@@ -18,6 +18,7 @@ class ArticlePostForm(forms.ModelForm):
     class Meta:
         model = ArticlePost
         fields = ("title","body")
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment

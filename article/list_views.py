@@ -12,6 +12,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
+from django.db.models import Count
+
 import redis
 from django.conf import settings
 
@@ -65,10 +67,13 @@ def article_detail(request, id, slug):
     else:
         comment_form = CommentForm()
 
+    article_tags_ids = article.article_tag.values_list("id",flat=True) #获取tag对应的id号所组成的列表， 如果flat为false的话，则返回一个带有（id，tag名）的列表
+    similar_articles = ArticlePost.objects.filter(article_tag__in = article_tags_ids).exclude(id=article.id) #获取所有tag在列表中的所有文章,exclude剔除了本文
+    similar_articles = similar_articles.annotate(same_tags = Count("article_tag")).order_by('-same_tags','-created')[:4] #通过Count计算相同tag的数量，然后通过same_tag 和 created进行排序，返回前四个
+
     return render(request, "article/list/articlel_detail.html", {"article":article,
-                                                                 "total_views":total_views,
-                                                                 "most_viewed":most_viewed,
-                                                                 "comment_form":comment_form})
+                                                                 "total_views":total_views,"most_viewed":most_viewed,
+                                                                 "comment_form":comment_form,"similar_articles":similar_articles})
 
 @csrf_exempt
 @require_POST

@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import Image
 from .form import ImageForm
+import os
 
 @login_required(login_url='/account/login')
 @csrf_exempt
@@ -34,7 +35,10 @@ def list_images(request):
 @csrf_exempt
 def del_image(request):
     image_id = request.POST['image_id']
+    image_url = request.POST['image_url']
+    print(image_url)
     try:
+        os.remove(image_url)
         image = Image.objects.get(id=image_id)
         image.delete()
         return JsonResponse({"status":"1"})

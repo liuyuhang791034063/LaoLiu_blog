@@ -25,7 +25,8 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ image.title }}</td>
-                    <td>{{ image.image }}</td>
+                    <!-- <td>{{ image.image }}</td> -->
+                    <td><img src="url of images"></td>
                     <td><a href='javascript:' name='delete' onclick='del_image(this,{{ image.id }})'><span class='layui-icon layui-icon-delete' style='margin-left: 20px;'></span></a></td>
                 </tr>
                 {% empty %}
@@ -101,6 +102,7 @@
     }
     function del_image(the,image_id){
         var image_title = $(the).parents("tr").children("td").eq(1).text();
+        var image_url = $(the).parents("tr").children("td").eq(2).text();
         layer.open({
             type:1,
             skin:"layui-layer-rim",
@@ -112,7 +114,7 @@
                 $.ajax({
                     url:'{% url "image:del_image" %}',
                     type:"POST",
-                    data:{"image_id":image_id},
+                    data:{"image_id":image_id,"image_url":image_url},
                     success:function(e){
                         var status = e['status']
                         if (status=="1"){

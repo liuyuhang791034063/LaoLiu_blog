@@ -14,14 +14,14 @@ def upload_image(request):
     form = ImageForm(data=request.POST)
     if form.is_valid():
         try:
-            print(456)
+            # print(456)
             new_item = form.save(commit=False)
-            print(789)
+            # print(789)
             new_item.user = request.user
             new_item.save()
             return JsonResponse({'status':"1"})
         except:
-            print(123)
+            # print(123)
             return JsonResponse({'status':"0"})
 
 @login_required(login_url='/account/login/')

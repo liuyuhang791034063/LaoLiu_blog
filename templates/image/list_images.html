@@ -1,0 +1,35 @@
+{% extends "article/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}images{% endblock %}
+
+{% block content %}
+<div>
+    <button class="layui-btn layui-btn-fluid" onclick="addImage()">添加图片</button>
+    <div style="margin-top: 10px;">
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>标题</th>
+                    <th>图片</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for image in images %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ image.title }}</td>
+                    <td>{{ image.image }}</td>
+                    <td><a href="javascript:" name="delete" onclick="del_image(this,{{ image.id }})"><span class="layui-icon-delete" style="margin-left: 20px;"></span></a></td>
+                </tr>
+                {% empty %}
+                <p>还没有图片，请点击上面的按钮添加图片</p>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

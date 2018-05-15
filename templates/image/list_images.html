@@ -30,7 +30,7 @@
                     {% thumbnail image.image "100x100" as im %}
                     <td><img src="{{ im.url }}"></td>
                     {% endthumbnail %}
-                    <td><a href='javascript:' name='delete' onclick='del_image(this,{{ image.id }})'><span class='layui-icon layui-icon-delete' style='margin-left: 20px;'></span></a></td>
+                    <td><a href='javascript:' name='delete' onclick="del_image(this,'{{ image.id }}','{{ image.image.url }}')"><span class='layui-icon layui-icon-delete' style='margin-left: 20px;'></span></a></td>
                 </tr>
                 {% empty %}
                 <p>还没有图片，请点击上面的按钮添加图片</p>
@@ -104,9 +104,9 @@
             },
         });
     }
-    function del_image(the,image_id){
+    function del_image(the,image_id,image_url){
         var image_title = $(the).parents("tr").children("td").eq(1).text();
-        var image_url = $(the).parents("tr").children("td").eq(2).text();
+        // var image_url = $(the).parents("tr").children("td").eq(2).text();
         layer.open({
             type:1,
             skin:"layui-layer-rim",

@@ -7,7 +7,7 @@ from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 
 from .models import Image
 from .form import ImageForm
-import os
+import os,sys
 
 @login_required(login_url='/account/login')
 @csrf_exempt
@@ -51,9 +51,12 @@ def list_images(request):
 def del_image(request):
     image_id = request.POST['image_id']
     image_url = request.POST['image_url']
-    print(image_url)
+    base_url = os.path.dirname(os.path.dirname(__file__))
+    print(base_url)
+    url = base_url + image_url
+    print(url)
     try:
-        os.remove(image_url)
+        os.remove(url)
         image = Image.objects.get(id=image_id)
         image.delete()
         return JsonResponse({"status":"1"})
@@ -63,4 +66,5 @@ def del_image(request):
 
 def falls_images(request):
     images = Image.objects.all()
-    return render(request, 'image/falls_image.html',{"images":images})
+    return render(request, 'image/falls_images.html',{"images":images})
+

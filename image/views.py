@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 
 from .models import Image
 from .form import ImageForm
@@ -28,7 +29,21 @@ def upload_image(request):
 @login_required(login_url='/account/login/')
 def list_images(request):
     images = Image.objects.filter(user=request.user)
-    return render(request, 'image/list_images.html', {"images":images})
+
+    paginator = Paginator(images,5) #创建Paginator对象，第二个数值是这一页最大图片数量
+    page = request.GET.get('page')
+    try:
+        current_page = paginator.page(page) #page方法用于获取page页面的内容
+        images = current_page.object_list #object_list属性 返回页面内容的列表
+    except PageNotAnInteger:
+        current_page = paginator.page(1)
+        images = current_page.object_list
+    except EmptyPage:
+        current_page = paginator.page(paginator.num_pages) #num_pages获取最大的页数
+        images = current_page.object_list
+
+    # return render(request, 'image/list_images.html', {"images":images,"page":current_page})
+    return render(request, 'image/list_images.html', {"images": images, "page": paginator})
 
 @login_required(login_url='/accout/login/')
 @require_POST

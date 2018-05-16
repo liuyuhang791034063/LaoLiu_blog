@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^home/', TemplateView.as_view(template_name="home.html"),name="home"),
     # url(r'', TemplateView.as_view(template_name="home.html"), name="null"),
     url(r'^image/',include(('image.urls','image'),namespace='image')),
+    url(r'^course/', include(('course.urls','course'),namespace='course')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) #給每个上传的静态图片配置URL

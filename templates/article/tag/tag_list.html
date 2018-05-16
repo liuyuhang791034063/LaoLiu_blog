@@ -45,7 +45,7 @@
     function add_tag(){
         tag = $('#id_tag').val();
         $.ajax({
-            url:'{% url 'article:article_tag' %}',
+            url:'{% url "article:article_tag" %}',
             type:'POST',
             data:{'tag':tag},
             success:function(e){
@@ -65,11 +65,11 @@
             skin:'layui-layer-rim',
             area:['400px','200px'],
             title:'删除文章标签',
-            content:'<div class='text-center' style='margin-top: 20px'><p>是否确定删除文章标签'+article_tag+'</p></div>',
+            content:'<div class="text-center" style="margin-top: 20px"><p>是否确定删除文章标签'+article_tag+'</p></div>',
             btn:['确定','取消'],
             yes:function(){
                 $.ajax({
-                    url:'{% url 'article:del_article_tag' %}',
+                    url:'{% url "article:del_article_tag" %}',
                     type:'POST',
                     data:{'tag_id':tag_id},
                     success:function(e){

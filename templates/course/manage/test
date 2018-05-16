@@ -1,0 +1,86 @@
+{% extends "article/base.html" %}
+{% load staticfiles %}
+{% block title %}Manage Course{% endblock %}
+
+{% block content %}
+<div>
+    <div class="text-right"><a href="{% url 'course:create_course' %}"><button type="button" class="layui-btn">添加课程</button></a></div>
+    <table class="layui-table">
+        <tr>
+            <td>序号</td>
+            <td>课程标题</td>
+            <td>发布日期</td>
+            <td>操作</td>
+        </tr>
+        {% for course in courses %}
+        <tr id="{{ forloop.counter }}">
+            <td>{{ forloop.counter }}</td>
+            <td>{{ course.title }}</td>
+            <td>{{ course.created |date:"Y-m-d"}}</td>
+            <td>
+                <a href="#" name="edit"><span class="layui-icon layui-icon-edit"></span></a>
+                <a href="{% url 'course:delete_course' course.id %}" name="delete" onclick="onDelete"><span class="layui-icon layui-icon-delete" style="margin-left: 20px;"></span></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<script src="{% static 'js/jquery.js' %}"></script>
+<!-- <script src="{% static 'js/layer.js' %}"></script>
+<script>
+    function delete_course(){
+        layer.open({
+            title:"删除",
+            content:'<form method="post">{% csrf_token %}\
+                    <p>Are you sure you want to delete "{{ object }}"?</p>\
+                    <input type="submit" value="Confirm" ></form>',
+        })
+    }
+</script> -->
+<script>
+    function getCookie(name){
+        if (document.cookie && document.cookie != ''){
+            var cookies = document.cookie.split(";");
+            for (var i = 0;i<cookies.length;i++){
+                var cookie = jQuery.trim(cookies[i]);
+                // 判断这个cookie字段开始的name是不是我们想要的？
+                if (cookie.substring(0,name.length+1)==(name+'=')){
+                    cookieValue = decodeURIComponent(cookie.substring(name.length+1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    $(document).ready(function () {
+        var csrftoken = getCookie('csrftoken');
+        function csrfSafeMethod(method) {
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            crossDomain:false,
+            beforeSend:function(xhr, settings){
+                if (!csrfSafeMethod(settings.type)){
+                    xhr.setRequestHeader("X-CSRFToken",csrftoken);
+                }
+            }
+        });
+        
+        var onDelete = function(){
+            alert("delete it?");
+            $.post(this.href, function(data){
+                if (data.result == "ok"){
+                    window.location.reload();
+                }else{
+                    alert("sth wrong");
+                }
+            }).fail(function(){
+                alert("error");
+            });
+            return false;
+        }
+
+    })
+</script>
+{% endblock %}

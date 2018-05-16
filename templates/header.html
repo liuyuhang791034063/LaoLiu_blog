@@ -10,6 +10,7 @@
                 <li><a href='{% url 'blog:blog_title' %}' >BLOG</a></li>
                 <li><a href='{% url 'article:article_titles' %}' class='layui-bg-green'>文章</a></li>
                 <li><a href="{% url 'image:falls_images' %}" >美图</a></li>
+                <li><a href="{% url 'course:course_list' %}">课程</a></li>
                 <li><a href="{% url 'course:about' %}">关于本站</a></li>
             </ul>
             <ul class='nav navbar-nav navbar-right'>
@@ -22,6 +23,7 @@
                             <li><a href='{% url 'account:my_information' %}' class='layui-bg-orange'>个人信息</a></li>
                             <li><a href='{% url 'article:article_column' %}' class='layui-bg-green'>后台管理</a> </li>
                             <li><a href='{% url 'image:list_images' %}' class='layui-bg-cyan'>图片管理</a></li>
+                            <li><a href="{% url 'course:manage_course' %}">课程管理</a></li>
                         </ul>
                     </div>
                 </li>

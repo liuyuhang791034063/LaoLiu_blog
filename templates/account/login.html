@@ -10,11 +10,11 @@
     <form class='form-horizontal' action='.' method='post'>{% csrf_token %}
         <!--{{ form.as_p }}-->
         <div class='form-group'>
-            <label for='{{ form.username.id_for_label }}' class='col-md-5 control-label' style='color:red'><span class='glyphicon glyphicon-user'></span>Username</label>
+            <label for='{{ form.username.id_for_label }}' class='col-md-5 control-label' style='color:red'><span class='layui-icon layui-icon-user'></span>Username</label>
             <div class='col-md-6 text-left'>{{ form.username }}</div>
         </div>
         <div class='form-group'>
-            <label for='{{ form.password.id_for_label }}' class='col-md-5 control-label' style='color:blue'><span class='glyphicon glyphicon-floppy-open'></span>Password</label>
+            <label for='{{ form.password.id_for_label }}' class='col-md-5 control-label' style='color:blue'><span class='layui-icon layui-icon-password'></span>Password</label>
             <div class='col-md-6 text-left'>{{ form.password }}</div>
         </div>
         <input type='submit' class='btn btn-primary btn-lg' value='Login'>

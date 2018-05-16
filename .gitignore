@@ -3,3 +3,5 @@
 *.pyc
 /templates/.vscode
 /.idea
+/venv
+/.vscode

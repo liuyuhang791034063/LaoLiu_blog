@@ -31,7 +31,7 @@
     function delete_course(){
         layer.open({
             title:"删除",
-            content:'<form method="post">{% csrf_token %}\
+            content:'<form method="post">{% csrf_token %}\kecheng
                     <p>Are you sure you want to delete "{{ object }}"?</p>\
                     <input type="submit" value="Confirm" ></form>',
         })

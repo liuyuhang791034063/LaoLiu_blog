@@ -6,7 +6,7 @@
 <div>
     <form action="" method="POST">{% csrf_token %}
         <p>你确定要删除"{{ object.title }}"?</p>
-        <input type="submit" value="提交">
+        <input type="submit" class="layui-btn" value="提交">
     </form>
 </div>
 {% endblock %}

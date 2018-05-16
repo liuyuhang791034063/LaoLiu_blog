@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'create-course/$', CreatedCourseView.as_view(), name='create_course'),
     url(r'delete-course/(?P<pk>\d+)/$',DeleteCourseView.as_view(), name='delete_course'),
 
+
 ]

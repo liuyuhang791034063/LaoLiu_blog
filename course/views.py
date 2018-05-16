@@ -60,9 +60,9 @@ class DeleteCourseView(UserCourseMixin,DeleteView):
         else:
             return resp
 
-def Delete(request):
+def Delete(request,id):
     try:
-        courses = Course.objects.filter(id = request.POST['id'])
+        courses = Course.objects.filter(id = id)
         courses.delete()
         return HttpResponse("1")
     except:

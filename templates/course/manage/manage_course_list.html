@@ -18,8 +18,9 @@
             <td>{{ course.title }}</td>
             <td>{{ course.created |date:"Y-m-d"}}</td>
             <td>
-                <a href="#" name="edit"><span class="layui-icon layui-icon-edit"></span></a>
+                <a href="{% url 'course:redit_course' course.id %}" name="edit"><span class="layui-icon layui-icon-edit"></span></a>
                 <a href="{% url 'course:delete_course' course.id %}" name="delete" ><span class="layui-icon layui-icon-delete" style="margin-left: 20px;"></span></a>
+                <a href="{% url 'course:list_lessons' course.id %}" ><span class="layui-icon layui-icon-search" style="margin-left: 20px"></span></a>
             </td>
         </tr>
         {% endfor %}

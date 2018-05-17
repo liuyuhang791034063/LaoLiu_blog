@@ -1,11 +1,12 @@
-from django.shortcuts import render,redirect,HttpResponse
+from django.shortcuts import render,redirect,HttpResponse,get_object_or_404
 from django.views.generic import TemplateView,ListView,CreateView,DeleteView
+from django.views.generic.base import TemplateResponseMixin,View
 from django.contrib.auth.models import User
 from braces.views import LoginRequiredMixin
 from django.urls import reverse_lazy
 
-from .models import Course
-from .forms import CreateCourseForm
+from .models import Course,Lesson
+from .forms import CreateCourseForm,CreateLessonForm
 import json
 
 class UserMixin:
@@ -67,3 +68,70 @@ def Delete(request,id):
         return HttpResponse("1")
     except:
         return HttpResponse("0")
+
+class CreateLessonView(LoginRequiredMixin,View):
+    model = Lesson
+    login_url = '/account/login/'
+
+    def get(self, request, *args, **kwargs):
+        form = CreateLessonForm(user=self.request.user) # 这里因为表单模型中重写了__init__,所以实例化时需要传入user
+        # form = CreateLessonForm()
+        return render(request, "course/manage/create_lesson.html", {"form":form})
+
+    def post(self, request, *args, **kwargs):
+        form = CreateLessonForm(self.request.user, request.POST, request.FILES) #因为传入表单中有文件,所以必须传入FILES
+        if form.is_valid():
+            new_lesson = form.save(commit=False)
+            new_lesson.user = self.request.user
+            new_lesson.save()
+            return redirect("course:manage_course") #返回软链接
+
+class ListLessonsView(LoginRequiredMixin,TemplateResponseMixin, View):
+    login_url = '/accout/login/'
+    template_name = 'course/manage/list_lessons.html'
+
+    def get(self, request, course_id):
+        course = get_object_or_404(Course, id=course_id)
+        return self.render_to_response({'course':course}) #传递数据到前端模板
+
+class Redit_CourseView(LoginRequiredMixin,View):
+    model = Course
+    login_url = '/account/login/'
+
+    def get(self, request, course_id, *args, **kwargs):
+        return render(request, 'course/manage/redit_course.html')
+
+    def post(self, request, course_id, *args, **kwargs):
+        redit_course = get_object_or_404(Course,id=course_id)
+        try:
+            redit_course.title = request.POST['title']
+            redit_course.overview = request.POST['overview']
+            redit_course.save()
+            return redirect("course:manage_course")
+        except:
+            print("sorre")
+            return
+
+class DetailLessonView(LoginRequiredMixin, TemplateResponseMixin, View):
+    login_url = '/account/login/'
+    template_name = "course/manage/detail_lesson.html"
+
+    def get(self, request, lesson_id):
+        lesson = get_object_or_404(Lesson, id=lesson_id)
+        return self.render_to_response({"lesson":lesson})
+
+class StudentListLessonView(ListLessonsView):
+    template_name = "course/slist_lessons.html"
+
+    def get(self, request, course_id):
+        course = get_object_or_404(Course, id=course_id)
+        is_learned = '0'
+        for a in course.student.all():
+            if request.user.username == a.username:
+                is_learned = '1'
+        return self.render_to_response({'course':course,'learned_flag':is_learned})
+
+    def post(self, request, *args, **kwargs):
+        course = Course.objects.get(id = kwargs['course_id'])
+        course.student.add(self.request.user)
+        return HttpResponse("ok")

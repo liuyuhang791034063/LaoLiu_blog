@@ -10,7 +10,7 @@ class Course(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-
+    student = models.ManyToManyField(User, related_name="courses_joined", blank=True)
     class Meta:
         ordering = ('-created',)
 
@@ -26,7 +26,7 @@ def user_directory_path(instance, filename):
 
 class Lesson(models.Model):
     user = models.ForeignKey(User, related_name='lesson_user', on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, related_name='lesson_course', on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, related_name='lesson', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     video = models.FileField(upload_to=user_directory_path)
     description = models.TextField(blank=True)
@@ -39,3 +39,4 @@ class Lesson(models.Model):
 
     def __str__(self):
         return '{}.{}'.format(self.order, self.title)
+

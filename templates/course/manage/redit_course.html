@@ -1,0 +1,19 @@
+{% extends "article/base.html" %}
+
+{% block title %}Redit Course{% endblock %}
+
+{% block content %}
+<div style="margin-left: 100px;margin-top: 10px;">
+    <form action="." method="POST" class="layui-form">{% csrf_token %}
+        <div class="layui-form-item">
+            <label class="layui-form-label">题目:</label>
+            <input type="text" name="title" class="layui-input-inline">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">概述</label>
+            <textarea name="overview" cols="30" rows="10"></textarea>
+        </div>
+        <div class="text-center"><input type="submit" value="提交" class="layui-btn"></div>
+    </form>
+</div>
+{% endblock %}

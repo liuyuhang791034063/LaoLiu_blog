@@ -85,7 +85,6 @@ class CreateLessonView(LoginRequiredMixin,View):
             new_lesson.user = self.request.user
             new_lesson.save()
             return redirect("course:manage_course") #返回软链接
-
 class ListLessonsView(LoginRequiredMixin,TemplateResponseMixin, View):
     login_url = '/accout/login/'
     template_name = 'course/manage/list_lessons.html'

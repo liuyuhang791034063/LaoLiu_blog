@@ -4,7 +4,7 @@
 
 {% block content %}
 <div style="margin-left: 200px;margin-top: 10px;">
-    <form action="." method="POST" enctype="multipart/form-data" class="layui-form">{% csrf_token %}
+    <form action="." method="POST" enctype="multipart/form-data">{% csrf_token %}
         <div style="margin-top: 10px;">
             <div class="col-md-2 text-left"><span>内容标题:</span></div>
             <div class="col-md-10 text-left">{{ form.title }}</div>
@@ -13,6 +13,16 @@
             <div class="col-md-2 text-left"><span>所属课程:</span></div>
             <div class="col-md-10 text-left">{{ form.course }}</div>
         </div>
+        <!-- <div style="margin-top: 20px;">
+            <div class="col-md-2 text-left"><span>所属课程:</span></div>
+            <div class="col-md-10">
+                <select name="course" >
+                    {% for c in form.course %}
+                    <option >c</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div> -->
         <div style="margin-top: 20px;">
             <div class="col-md-2 text-left"><span>上传视频:</span></div>
             <div class="col-md-10 text-left">{{ form.video }}</div>

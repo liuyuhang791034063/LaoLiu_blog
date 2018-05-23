@@ -20,5 +20,7 @@ class CreateLessonForm(forms.ModelForm):
         model = Lesson
         fields = ['course','title','video','description','attach']
     def __init__(self, user, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(CreateLessonForm, self).__init__(*args, **kwargs)
         self.fields['course'].queryset = Course.objects.filter(user=user)
+        print(self.fields['course'])
+        print(self.fields['title'])
